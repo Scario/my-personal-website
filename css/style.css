@@ -1,4 +1,6 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -7,6 +9,15 @@
 main {
     height: 100vh;
     display: flex;
+    flex-direction: row;
+}
+
+.vertical {
+    position: absolute;
+    top: 0;
+    left: 0;
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
 }
 
 #grid {
@@ -18,8 +29,42 @@ main {
     grid-column-gap: 2vw;
     grid-row-gap: 2vw;
 }
+
 .square {
-    background-color: red;
+    background-color: transparent;
     width: 10vw;
     height: 10vw;
+    border: 1px solid darkcyan;
+}
+
+.square-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.square:hover .square-inner {
+    transform: rotateY(180deg);
+}
+
+.square-front,
+.square-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.square-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.square-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
 }
