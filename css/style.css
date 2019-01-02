@@ -14,8 +14,8 @@ main {
 
 .vertical {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 2vw;
+    left: 2vw;
     writing-mode: tb-rl;
     transform: rotate(-180deg);
 }
@@ -23,18 +23,50 @@ main {
 #grid {
     display: grid;
     width: 34vw;
-    height: 34vw;
+    height: 22vw;
     margin: auto;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+        "hobby works works"
+        "snippets experience me";
     grid-column-gap: 2vw;
     grid-row-gap: 2vw;
 }
 
 .square {
     background-color: transparent;
-    width: 10vw;
-    height: 10vw;
     border: 1px solid darkcyan;
+}
+
+.square.content {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    width: 100%;
+    display: none;
+}
+
+#hobby {
+    grid-area: hobby;
+}
+
+#works {
+    grid-area: works;
+}
+
+#contents {
+    grid-area: contents;
+}
+
+#snippets {
+    grid-area: snippets;
+}
+
+#experience {
+    grid-area: experience;
+}
+
+#me {
+    grid-area: me;
 }
 
 .square-inner {
@@ -53,6 +85,9 @@ main {
 .square-front,
 .square-back {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
