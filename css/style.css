@@ -31,6 +31,7 @@ main {
         "snippets experience me";
     grid-column-gap: 2vw;
     grid-row-gap: 2vw;
+    z-index: 10;
 }
 
 .square {
@@ -102,4 +103,43 @@ main {
     background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    visibility: hidden;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+    opacity: 0;
+    -webkit-transition: opacity .2s, visibility .2s;
+    -moz-transition: opacity .2s, visibility .2s;
+    -ms-transition: opacity .2s, visibility .2s;
+    -o-transition: opacity .2s, visibility .2s;
+    transition: opacity .2s, visibility .2s;
+}
+
+#modal.open {
+    display: flex;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+}
+
+#modal #close {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+}
+
+#modal .modal-content {
+    position: relative;
+    width: 34vw;
+    height: 22vw;
+    margin: auto;
+    background-color: white;
+    border: 1px solid #EFEFEF;
 }
