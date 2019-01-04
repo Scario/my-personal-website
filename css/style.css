@@ -37,6 +37,10 @@ main {
 .square {
     background-color: transparent;
     border: 1px solid darkcyan;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
 }
 
 .square.content {
@@ -75,7 +79,7 @@ main {
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s;
+    transition: transform 0.5s;
     transform-style: preserve-3d;
 }
 
@@ -103,6 +107,20 @@ main {
     background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);
+}
+
+.square-content {
+    display: none;
+}
+
+.modal-inner h3 {
+    color: darkcyan;
+    padding-top: 1em;
+}
+
+.modal-inner h4 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #EFEFEF;
 }
 
 #modal {
@@ -142,4 +160,5 @@ main {
     margin: auto;
     background-color: white;
     border: 1px solid #EFEFEF;
+    padding: 1vw;
 }
