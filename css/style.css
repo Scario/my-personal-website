@@ -66,8 +66,18 @@ main {
     grid-area: snippets;
 }
 
+#snippets .square-front {
+    background-image: url("../img/code.jpg");
+    background-size: cover;
+}
+
 #experience {
     grid-area: experience;
+}
+
+#experience .square-front {
+    background-image: url("../img/cravatta.jpg");
+    background-size: cover;
 }
 
 #me {
