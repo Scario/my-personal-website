@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html {
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        height: 100vh;
+    }
+
+    #wrapper {
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "hobby works works"
+            "snippets experience me";
+        grid-column-gap: 1vw;
+        grid-row-gap: 1vw;
+        transition: .5s all;
+        width: 60vw;
+    }
+
+    @media (max-width: 480px) {
+        #wrapper {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+            "hobby"
+            "works"
+            "snippets"
+            "experience" 
+            "me";
+        }
+    }
+
+    #wrapper ~ .modalOpen {
+        width: 60vw !important;
+        height: 80vh !important;
+        top: 10vh !important;
+        right: 20vw;
+        left: 20vw !important;
+        overflow: hidden;
+    }
+
+    #hobby {
+        grid-area: hobby;
+    }
+
+    #hobby {
+        grid-area: hobby;
+    }
+
+    #works {
+        grid-area: works;
+    }
+
+    #contents {
+        grid-area: contents;
+    }
+
+    #snippets {
+        grid-area: snippets;
+    }
+
+    #experience {
+        grid-area: experience;
+    }
+
+    #me {
+        grid-area: me;
+    }
+
+    .modal,
+    .square {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        /* transition: .5s ease-in-out; */
+    }
+
+    .square {
+        cursor: pointer;
+    }
+
+    h2 {
+        color: #fff;
+    }
+
+    .closeBtn {
+        position: absolute;
+        right: 1vw;
+        top: 1vw;
+        cursor: pointer;
+    }
+    .modalHide {
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="wrapper"></div>
+    <div id="content-works" class="modalHide">
+        <h3>Prova</h3>
+        <div>Bacon ipsum dolor amet cupim doner jerky swine, pork chop drumstick salami shoulder. Hamburger picanha pork meatball, shoulder kevin ball tip cupim capicola prosciutto salami pancetta frankfurter. Cupim burgdoggen kevin sirloin flank. Hamburger porchetta jerky pork belly shankle brisket pork loin short ribs sirloin beef ribs pastrami salami leberkas tenderloin.
+
+                Ham ground round capicola cupim, fatback sirloin pork tongue tail porchetta shank turkey picanha. Bacon turkey short ribs chicken. Sirloin strip steak hamburger picanha, meatloaf tail meatball landjaeger swine. Brisket strip steak chicken salami, andouille ground round porchetta leberkas short loin tri-tip chuck.
+                
+                Shank sausage swine, ham hamburger pork chop shankle corned beef meatloaf frankfurter porchetta turducken andouille drumstick. Frankfurter salami porchetta beef ribs tongue. Tail pork andouille landjaeger swine beef turducken. Brisket ribeye prosciutto chuck. Cow corned beef kevin beef ribs venison salami shoulder pork chop. Salami beef ribs corned beef, short ribs short loin spare ribs kevin kielbasa shank alcatra ball tip tenderloin andouille picanha.
+                
+                Burgdoggen capicola t-bone rump chicken tri-tip flank short ribs shoulder fatback sirloin. Ham prosciutto ham hock venison burgdoggen sausage leberkas. Sausage leberkas pork belly, frankfurter pancetta buffalo corned beef pork. Picanha beef leberkas, rump spare ribs pork pastrami. Ham leberkas spare ribs cow. Ham rump andouille, fatback porchetta doner brisket ribeye pork chop jowl corned beef tri-tip.
+                
+                Ham hock pork loin jerky frankfurter chuck. Alcatra short ribs hamburger, jowl pork belly pastrami andouille shank. Jerky pork capicola alcatra landjaeger strip steak ribeye venison cow. Meatloaf cupim tail sirloin salami. Cupim short loin meatball pastrami bresaola porchetta. Bacon kevin pork, swine corned beef ground round bresaola turkey ribeye pork belly meatball jowl ham. Fatback tenderloin spare ribs turducken porchetta bacon kielbasa chicken jowl ground round.</div>
+    </div>
+    <script>
+        function createSquare(identifier, text) {
+            var square = document.createElement("div");
+            square.classList.add("square");
+            square.id = identifier;
+            var title = document.createElement("h2");
+            var titleText = document.createTextNode(text);
+            title.appendChild(titleText);
+            square.appendChild(title);
+
+            return square;
+        }
+
+        function removeModal() {
+            var modal = document.getElementsByClassName("modalOpen")[0];
+            modal.classList.remove("modalOpen");
+            setTimeout(function () {
+                modal.parentElement.removeChild(modal);
+            }, 500);
+        }
+
+        function renderSquare(elem, titleColor) {
+            var wrapper = document.getElementById("wrapper");
+            wrapper.appendChild(elem);
+            elem.style.backgroundColor = titleColor;
+            elem.addEventListener("click", function () {
+                var modal = document.createElement("div")
+                modal.id = "modal" + elem.id;
+
+                var closeBtn = document.createElement("a");
+                closeBtn.classList.add("closeBtn");
+
+                var closeText = document.createTextNode("X");
+                var title = elem.getElementsByTagName("h2")[0].innerHTML;
+                var titleElement = document.createElement("h2");
+                var titleText = document.createTextNode(title);
+
+                titleElement.appendChild(titleText);
+                modal.appendChild(titleElement);
+                closeBtn.appendChild(closeText);
+                modal.appendChild(closeBtn);
+
+                document.getElementsByTagName("body")[0].appendChild(modal);
+                closeBtn.addEventListener("click", removeModal);
+
+                modal.style.position = "absolute";
+                modal.style.backgroundColor = titleColor;
+                modal.style.top = elem.offsetTop + "px";
+                modal.style.left = elem.offsetLeft + "px";
+                modal.style.width = elem.offsetWidth + "px";
+                modal.style.height = elem.offsetHeight + "px";
+                modal.style.transition = ".5s all ease-in-out";
+                modal.classList.add("modalOpen");
+                modal.classList.add("modal");
+
+                var modalContent = document.createElement("div");
+
+                modalContent.innerHTML = document.getElementById("content-"+elem.id).innerHTML;
+
+                modal.appendChild(modalContent);
+
+            });
+        }
+
+
+        var hobbySquare = createSquare("hobby", "Hobby");
+        var workSquare = createSquare("works", "Work");
+        var snippetSquare = createSquare("snippets", "Snippets");
+        var experienceSquare = createSquare("experience", "Experience");
+        var meSquare = createSquare("me", "Me");
+
+        renderSquare(meSquare, "yellow");
+        renderSquare(experienceSquare, "darkcyan");
+        renderSquare(snippetSquare, "red");
+        renderSquare(workSquare, "green");
+        renderSquare(hobbySquare, "cyan");
+    </script>
+</body>
+
+</html>
